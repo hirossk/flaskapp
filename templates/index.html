@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- meta http-equiv="refresh" content="4;" -->
+
+  <title>HELLO</title>
+</head>
+<script>
+  let tictac = false;
+
+  function reloadimg(e, timer) {
+    setTimeout(function () {
+      if (tictac) {
+        e.src = "/images/" + e.alt + ".jpg?r=" + Math.random();
+      } else {
+        e.src = "/images/" + e.alt + ".jpg?r=" + Math.random();
+      }
+      tictac = !tictac;
+    }, timer);
+  }
+
+  window.addEventListener("load", function () {
+    document.getElementById("words").addEventListener("click", function () {
+      // FoemDataオブジェクトを実体化する際にHTMLフォームのセレクタを渡せば
+      // データのキーと値をセットで準備することができます
+      var formDatas = document.getElementById("word");
+      console.log(formDatas);
+      // XHRの宣言
+      var XHR = new XMLHttpRequest();
+      // openメソッドにGETを指定して送信先のURLを指定します
+      XHR.open("GET", "/word", true);
+      // sendメソッドにデータを渡して送信を実行する
+      XHR.send(postDatas);
+      // サーバの応答をonreadystatechangeイベントで検出して正常終了したらデータを取得する
+      XHR.onreadystatechange = function () {
+        // if (XHR.readyState == 4 && XHR.status == 200) {
+        //   // POST送信した結果を表示する
+        //   document.getElementById("userinfo_response").innerHTML = XHR.responseText;
+        // }
+      };
+    }, false);
+  }, false);
+</script>
+<style>
+  .morphing {
+    position: relative;
+    font-size: 50px;
+    background-color: #fff;
+    color: #fff;
+    min-height: 100vh;
+    filter: contrast(25) blur(1px);
+  }
+
+  .image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: image 12s 0s infinite ease-in-out;
+  }
+
+  @keyframes image {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    60% {
+      opacity: 0;
+      z-index: 10;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .im1 {
+    width: 600px;
+    height: 450px;
+  }
+
+  .im2 {
+    width: 600px;
+    height: 450px;
+    animation-delay: 6s;
+  }
+
+  .width300 {
+    width: 300px;
+  }
+</style>
+
+<body>
+  <div><!-- 
+    <form action="word" method="post">
+      <input type="text" name="words">
+      <input type="submit" value="送信">
+    </form> -->
+    <form id="words" action="/word">
+      <label for="item1">キーワード</label>
+      <input name="word" id="item1" class="width300">
+    </form>
+  </div>
+  <div class="morphing">
+    <img class="image im1" src="/images/imgdraw1.jpg" alt="imgdraw1" width="600" onload="reloadimg(this,6000)"
+      onerror="reloadimg(this,5000)">
+    <img class="image im2" src="/images/imgdraw2.jpg" alt="imgdraw2" width="600" onload="reloadimg(this,6000)"
+      onerror="reloadimg(this,5000)">
+  </div>
+  <form action="reset" method="POST">
+    <input type="submit" value="リセット" />
+  </form>
+
+</body>
+
+</html>
