@@ -15,12 +15,6 @@ def saveimage(fid):
 @app.route('/')
 def display():
     saveimage("imgdraw1")
-    #im = Image.new("RGB", (800, 600), (128, 128, 128))
-    #draw = ImageDraw.Draw(im)
-    #draw.line((0, im.height, im.width, 0), fill=(255, 0, 0), width=8)
-    #draw.rectangle((100, 100, 200, 200), fill=(0, 255, 0))
-    #draw.ellipse((250, 300, 450, 400), fill=(0, 0, 255))
-    #im.save('templates/images/imgdraw.jpg', quality=95)
     html = render_template('index.html',srcname = "images/imgdraw1.jpg")
     
     return html #'Hello, Remote Flask too!'
@@ -55,7 +49,6 @@ def reset_words():
     with open('file.txt', mode='w') as f:
         f.close()
     im = Image.new("RGB", (800, 600), (255, 255, 255))
-    draw = ImageDraw.Draw(im)
     im.save('templates/images/imgdraw1.jpg', quality=95)
     im.save('templates/images/imgdraw2.jpg', quality=95)
     html = render_template('index.html',srcname = "images/imgdraw1.jpg")
